@@ -1,75 +1,33 @@
-<template>
-  <div class="bg-product">
-    <Header />
-    <div class="page-edit mt-2">
-      <h1 class="text-center">Editar producto</h1>
-      <form v-on:submit.prevent="updateProduct()">
-        <input type="text" hidden v-model="product.id" />
-        <div class="mb-3">
-          <label for="title" class="form-label">Título</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            v-model="product.title"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Descripción</label>
-          <textarea
-            class="form-control"
-            id="description"
-            rows="3"
-            v-model="product.description"
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="category" class="form-label">Categoría</label>
-          <input
-            type="text"
-            class="form-control"
-            id="category"
-            v-model="product.category"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">Precio</label>
-          <input
-            type="number"
-            class="form-control"
-            id="price"
-            v-model="product.price"
-            step="0.01"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="stock" class="form-label">Stock</label>
-          <input
-            type="number"
-            class="form-control"
-            id="stock"
-            v-model="product.stock"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="rating" class="form-label">Rating</label>
-          <input
-            type="number"
-            class="form-control"
-            id="rating"
-            v-model="product.rating"
-            step="0.01"
-          />
-        </div>
-        <div class="d-flex justify-content-start">
-          <button type="submit" class="btn btn-primary mx-2">Actualizar</button>
-          <button class="btn btn-dark" v-on:click="exitUpdate()">Salir</button>
-        </div>
-      </form>
-    </div>
-    <Footer />
-  </div>
-</template>
+<template lang="pug">
+  .bg-product
+    Header
+    .page-edit.mt-2
+      h1.text-center Editar producto
+      form(@submit.prevent="updateProduct")
+        input(type="text" hidden v-model="product.id")
+        .mb-3
+          label(for="title" class="form-label") Título
+          input#title.form-control(type="text" v-model="product.title")
+        .mb-3
+          label(for="description" class="form-label") Descripción
+          textarea#description.form-control(rows="3" v-model="product.description")
+        .mb-3
+          label(for="category" class="form-label") Categoría
+          input#category.form-control(type="text" v-model="product.category")
+        .mb-3
+          label(for="price" class="form-label") Precio
+          input#price.form-control(type="number" v-model="product.price" step="0.01")
+        .mb-3
+          label(for="stock" class="form-label") Stock
+          input#stock.form-control(type="number" v-model="product.stock")
+        .mb-3
+          label(for="rating" class="form-label") Rating
+          input#rating.form-control(type="number" v-model="product.rating" step="0.01")
+        .d-flex.justify-content-start
+          button.btn.btn-primary.mx-2(type="submit") Actualizar
+          button.btn.btn-dark(@click="exitUpdate") Salir
+    Footer
+  </template>
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
@@ -113,11 +71,11 @@ export default {
         .catch((error) => {
           this.errorMessage =
             error.response.data.message ?? "Error al cargar el producto";
-            this.makeToast(
-              "Error",
-              this.errorMessage ?? "Error al cargar el producto",
-              "danger",
-            );
+          this.makeToast(
+            "Error",
+            this.errorMessage ?? "Error al cargar el producto",
+            "danger"
+          );
         });
     }
   },
@@ -128,13 +86,9 @@ export default {
         this.$router.push("/");
       } else {
         axios
-          .put(
-            `https://dummyjson.com/products/${this.product.id}`,
-            this.product,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
+          .put(`https://dummyjson.com/products/${this.product.id}`, this.product, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
           .then((response) => {
             if (response.status === 200) {
               this.makeToast(

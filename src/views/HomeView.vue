@@ -1,57 +1,34 @@
-<template>
-  <div class="table-list">
-    <Header />
-    <div class="p-3">
-      <button class="btn btn-primary mb-3" v-on:click="createProduct()">
-        Crear producto
-      </button>
-      <table class="table table-hover table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Título</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Calificación</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(product, index) in listProducts" :key="index">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ product.title }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.category }}</td>
-            <td>S/ {{ product.price }}</td>
-            <td>{{ product.stock }}</td>
-            <td>{{ product.rating }}</td>
-            <td>
-              <div class="d-flex justify-content-center">
-                <button
-                  type="button"
-                  class="mx-2 btn btn-primary btn-sm"
-                  @click.stop="editProduct(product.id)"
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger btn-sm"
-                  @click.stop="deleteProduct(product.id)"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <Footer />
-  </div>
-</template>
+<template lang="pug">
+  .table-list
+    Header
+    .p-3
+      button.btn.btn-primary.mb-3(@click="createProduct()") Crear producto
+      table.table.table-hover.table-dark
+        thead
+          tr
+            th(scope="col") #
+            th(scope="col") Título
+            th(scope="col") Descripción
+            th(scope="col") Categoría
+            th(scope="col") Precio
+            th(scope="col") Stock
+            th(scope="col") Calificación
+            th(scope="col") Acciones
+        tbody
+          tr(v-for="(product, index) in listProducts" :key="index")
+            th(scope="row") {{ index + 1 }}
+            td {{ product.title }}
+            td {{ product.description }}
+            td {{ product.category }}
+            td S/ {{ product.price }}
+            td {{ product.stock }}
+            td {{ product.rating }}
+            td
+              .d-flex.justify-content-center
+                button.mx-2.btn.btn-primary.btn-sm(@click.stop="editProduct(product.id)") Editar
+                button.btn.btn-danger.btn-sm(@click.stop="deleteProduct(product.id)") Eliminar
+    Footer
+  </template>
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";

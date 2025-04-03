@@ -1,63 +1,37 @@
-<template>
-  <div class="container">
-    <div class="d-flex justify-content-center h-100">
-      <div class="card">
-        <div class="card-header">
-          <h3>Iniciar sesión</h3>
-          <div class="d-flex justify-content-end social_icon">
-            <span><i class="fab fa-facebook-square"></i></span>
-            <span><i class="fab fa-google-plus-square"></i></span>
-            <span><i class="fab fa-twitter-square"></i></span>
-          </div>
-        </div>
-        <div class="card-body">
-          <form v-on:submit.prevent="login">
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                  ><i class="fas fa-user"></i
-                ></span>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Usuario"
-                v-model="user"
-              />
-            </div>
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-key"></i></span>
-              </div>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="Password"
-                v-model="password"
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="submit"
-                value="Login"
-                class="float-right login_btn"
-              />
-            </div>
-          </form>
-        </div>
-        <div class="card-footer">
-          <div class="d-flex justify-content-center links">
-            ¿No tienes una cuenta?<a href="#">Registrate</a>
-          </div>
-          <div class="d-flex justify-content-center">
-            <a href="#">¿Olvidaste tu contraseña?</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
+<template lang="pug">
+  .container
+    .d-flex.justify-content-center.h-100
+      .card
+        .card-header
+          h3 Iniciar sesión
+          .d-flex.justify-content-end.social_icon
+            span
+              i.fab.fa-facebook-square
+            span
+              i.fab.fa-google-plus-square
+            span
+              i.fab.fa-twitter-square
+        .card-body
+          form(@submit.prevent="login")
+            .input-group.form-group
+              .input-group-prepend
+                span.input-group-text
+                  i.fas.fa-user
+              input.form-control(type="text" placeholder="Usuario" v-model="user")
+            .input-group.form-group
+              .input-group-prepend
+                span.input-group-text
+                  i.fas.fa-key
+              input.form-control(type="password" placeholder="Password" v-model="password")
+            .form-group
+              input.login_btn.float-right(type="submit" value="Login")
+        .card-footer
+          .d-flex.justify-content-center.links
+            | ¿No tienes una cuenta?
+            a(href="#") Registrate
+          .d-flex.justify-content-center
+            a(href="#") ¿Olvidaste tu contraseña?
+  </template>
 <script>
 import axios from "axios";
 import toastMixin from "@/assets/js/toastMixin";

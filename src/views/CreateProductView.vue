@@ -1,77 +1,30 @@
-<template>
-  <div class="bg-product">
-    <Header />
-    <div class="page-create mt-2">
-      <h1 class="text-center">Crear producto</h1>
-      <form v-on:submit.prevent="createProduct()">
-        <div class="mb-3">
-          <label for="title" class="form-label">Título</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            v-model="product.title"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Descripción</label>
-          <textarea
-            class="form-control"
-            id="description"
-            rows="3"
-            v-model="product.description"
-            required
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="category" class="form-label">Categoría</label>
-          <input
-            type="text"
-            class="form-control"
-            id="category"
-            v-model="product.category"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">Precio</label>
-          <input
-            type="number"
-            class="form-control"
-            id="price"
-            v-model.number="product.price"
-            step="0.01"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="stock" class="form-label">Stock</label>
-          <input
-            type="number"
-            class="form-control"
-            id="stock"
-            v-model.number="product.stock"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="rating" class="form-label">Rating</label>
-          <input
-            type="number"
-            class="form-control"
-            id="rating"
-            v-model.number="product.rating"
-            required
-            step="0.01"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Crear producto</button>
-      </form>
-    </div>
-    <Footer />
-  </div>
-</template>
+<template lang="pug">
+  .bg-product
+    Header
+    .page-create.mt-2
+      h1.text-center Crear producto
+      form(@submit.prevent="createProduct")
+        .mb-3
+          label(for="title" class="form-label") Título
+          input#title.form-control(type="text" v-model="product.title" required)
+        .mb-3
+          label(for="description" class="form-label") Descripción
+          textarea#description.form-control(rows="3" v-model="product.description" required)
+        .mb-3
+          label(for="category" class="form-label") Categoría
+          input#category.form-control(type="text" v-model="product.category" required)
+        .mb-3
+          label(for="price" class="form-label") Precio
+          input#price.form-control(type="number" v-model.number="product.price" step="0.01" required)
+        .mb-3
+          label(for="stock" class="form-label") Stock
+          input#stock.form-control(type="number" v-model.number="product.stock" required)
+        .mb-3
+          label(for="rating" class="form-label") Rating
+          input#rating.form-control(type="number" v-model.number="product.rating" step="0.01" required)
+        button.btn.btn-primary(type="submit") Crear producto
+    Footer
+  </template>
 <script>
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";

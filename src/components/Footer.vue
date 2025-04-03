@@ -1,80 +1,62 @@
-<template>
-  <footer class="text-center bg-body-tertiary">
-    <!-- Grid container -->
-    <div>
-      <!-- Section: Social media -->
-      <section>
-        <!-- Facebook -->
-        <a
-          data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+<template lang="pug">
+  footer.text-center.bg-body-tertiary
+    //- Grid container
+    div
+      //- Section: Social media
+      section
+        //- Facebook
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-
-        <!-- Twitter -->
-        <a
           data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+          data-mdb-ripple-color="dark"
+        )
+          i.fab.fa-facebook-f
+        //- Twitter
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-
-        <!-- Google -->
-        <a
           data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+          data-mdb-ripple-color="dark"
+        )
+          i.fab.fa-twitter
+        //- Google
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-google"></i
-        ></a>
-
-        <!-- Instagram -->
-        <a
           data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+          data-mdb-ripple-color="dark"
+        )
+          i.fab.fa-google
+        //- Instagram
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-
-        <!-- Linkedin -->
-        <a
           data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+          data-mdb-ripple-color="dark"
+        )
+          i.fab.fa-instagram
+        //- Linkedin
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-linkedin"></i
-        ></a>
-        <!-- Github -->
-        <a
           data-mdb-ripple-init
-          class="btn btn-link btn-floating btn-lg text-body m-1"
+          data-mdb-ripple-color="dark"
+        )
+          i.fab.fa-linkedin
+        //- Github
+        a.btn.btn-link.btn-floating.btn-lg.text-body.m-1(
           href="#!"
           role="button"
+          data-mdb-ripple-init
           data-mdb-ripple-color="dark"
-          ><i class="fab fa-github"></i
-        ></a>
-      </section>
-      <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.05)">
-      © 2020 Copyright:
-      <a class="text-body" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-</template>
+        )
+          i.fab.fa-github
+    //- Copyright
+    div.text-center.p-2(style="background-color: rgba(0, 0, 0, 0.05)")
+      | © 2020 Copyright:
+      a.text-body(href="https://mdbootstrap.com/") MDBootstrap.com
+  </template>
 <script>
 export default {
   name: "AppFooter",
