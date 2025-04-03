@@ -1,27 +1,61 @@
 <template lang="pug">
   .bg-product
     Header
-    .page-create.mt-2
-      h1.text-center Crear producto
+    .page-create
+      h1.text-center.mb-0 Crear producto
       form(@submit.prevent="createProduct")
-        .mb-3
+        .mb-1
           label(for="title" class="form-label") Título
-          input#title.form-control(type="text" v-model="product.title")
-        .mb-3
+          input#title.form-control(
+            type="text"
+            v-model="product.title"
+            :class="{ 'is-invalid': v$.product.title.$error }"
+          )
+          div.text-danger(v-if="v$.product.title.$error") El título es obligatorio
+        .mb-1
           label(for="description" class="form-label") Descripción
-          textarea#description.form-control(rows="3" v-model="product.description" )
-        .mb-3
-          label(for="category" class="form-label") Categoría
-          input#category.form-control(type="text" v-model="product.category")
-        .mb-3
-          label(for="price" class="form-label") Precio
-          input#price.form-control(type="number" v-model.number="product.price" step="0.01" )
-        .mb-3
-          label(for="stock" class="form-label") Stock
-          input#stock.form-control(type="number" v-model.number="product.stock")
-        .mb-3
-          label(for="rating" class="form-label") Rating
-          input#rating.form-control(type="number" v-model.number="product.rating" step="0.01")
+          textarea#description.form-control(
+            rows="3"
+            v-model="product.description"
+            :class="{ 'is-invalid': v$.product.description.$error }"
+          )
+          div.text-danger(v-if="v$.product.description.$error") La descripción es obligatoria
+        .row
+          .col-md-6.mb-1
+            label(for="category" class="form-label") Categoría
+            input#category.form-control(
+              type="text"
+              v-model="product.category"
+              :class="{ 'is-invalid': v$.product.category.$error }"
+            )
+            div.text-danger(v-if="v$.product.category.$error") La categoría es obligatoria
+          .col-md-6.mb-1
+            label(for="price" class="form-label") Precio
+            input#price.form-control(
+              type="number"
+              v-model.number="product.price"
+              step="0.01"
+              :class="{ 'is-invalid': v$.product.price.$error }"
+            )
+            div.text-danger(v-if="v$.product.price.$error") El precio debe ser un número válido
+        .row
+          .col-md-6.mb-1
+            label(for="stock" class="form-label") Stock
+            input#stock.form-control(
+              type="number"
+              v-model.number="product.stock"
+              :class="{ 'is-invalid': v$.product.stock.$error }"
+            )
+            div.text-danger(v-if="v$.product.stock.$error") El stock debe ser un número válido
+          .col-md-6.mb-2
+            label(for="rating" class="form-label") Rating
+            input#rating.form-control(
+              type="number"
+              v-model.number="product.rating"
+              step="0.01"
+              :class="{ 'is-invalid': v$.product.rating.$error }"
+            )
+            div.text-danger(v-if="v$.product.rating.$error") El rating debe ser un número válido
         button.btn.btn-primary(type="submit") Crear producto
     Footer
   </template>
@@ -31,7 +65,7 @@ import Footer from "@/components/Footer.vue";
 import axios from "axios";
 import toastMixin from "@/assets/js/toastMixin";
 import { useVuelidate } from "@vuelidate/core";
-import { numeric, required } from "@vuelidate/validators";
+import { minValue, numeric, required } from "@vuelidate/validators";
 
 export default {
   name: "CreateProductView",
@@ -62,9 +96,9 @@ export default {
         title: { required },
         description: { required },
         category: { required },
-        price: { required, numeric },
-        stock: { required, numeric },
-        rating: { required, numeric },
+        price: { required, numeric, minValueValue: minValue(0.01) },
+        stock: { required, numeric, minValueValue: minValue(1) },
+        rating: { required, numeric, minValueValue: minValue(1) },
       },
     };
   },
@@ -76,6 +110,18 @@ export default {
   },
   methods: {
     createProduct() {
+      // Marca los campos como "tocados" para activar las validaciones
+      this.v$.product.$touch();
+
+      // Verifica si hay errores de validación
+      if (this.v$.product.$invalid) {
+        this.makeToast(
+          "Error",
+          "Por favor, corrige los errores en el formulario.",
+          "danger"
+        );
+        return; // Detiene el envío si hay errores
+      }
       let token = localStorage.getItem("token");
       if (!token) {
         this.$router.push("/");
