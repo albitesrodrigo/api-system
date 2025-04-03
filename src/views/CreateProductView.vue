@@ -6,22 +6,22 @@
       form(@submit.prevent="createProduct")
         .mb-3
           label(for="title" class="form-label") Título
-          input#title.form-control(type="text" v-model="product.title" required)
+          input#title.form-control(type="text" v-model="product.title")
         .mb-3
           label(for="description" class="form-label") Descripción
-          textarea#description.form-control(rows="3" v-model="product.description" required)
+          textarea#description.form-control(rows="3" v-model="product.description" )
         .mb-3
           label(for="category" class="form-label") Categoría
-          input#category.form-control(type="text" v-model="product.category" required)
+          input#category.form-control(type="text" v-model="product.category")
         .mb-3
           label(for="price" class="form-label") Precio
-          input#price.form-control(type="number" v-model.number="product.price" step="0.01" required)
+          input#price.form-control(type="number" v-model.number="product.price" step="0.01" )
         .mb-3
           label(for="stock" class="form-label") Stock
-          input#stock.form-control(type="number" v-model.number="product.stock" required)
+          input#stock.form-control(type="number" v-model.number="product.stock")
         .mb-3
           label(for="rating" class="form-label") Rating
-          input#rating.form-control(type="number" v-model.number="product.rating" step="0.01" required)
+          input#rating.form-control(type="number" v-model.number="product.rating" step="0.01")
         button.btn.btn-primary(type="submit") Crear producto
     Footer
   </template>
@@ -30,6 +30,8 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import axios from "axios";
 import toastMixin from "@/assets/js/toastMixin";
+import { useVuelidate } from "@vuelidate/core";
+import { numeric, required } from "@vuelidate/validators";
 
 export default {
   name: "CreateProductView",
@@ -37,6 +39,9 @@ export default {
   components: {
     Header,
     Footer,
+  },
+  setup() {
+    return { v$: useVuelidate() };
   },
   data() {
     return {
@@ -49,6 +54,18 @@ export default {
         rating: 0,
       },
       errorMessage: "",
+    };
+  },
+  validations() {
+    return {
+      product: {
+        title: { required },
+        description: { required },
+        category: { required },
+        price: { required, numeric },
+        stock: { required, numeric },
+        rating: { required, numeric },
+      },
     };
   },
   mounted() {
